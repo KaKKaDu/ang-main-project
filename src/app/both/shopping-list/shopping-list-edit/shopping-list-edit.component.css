@@ -1,0 +1,42 @@
+.not-displayed {
+  display: none;
+}
+
+input:focus {
+  border: 2px solid gray;
+  box-shadow: none;
+}
+
+.single-btn-edit-cont {
+  display: flex;
+  justify-content: center;
+}
+
+.shoplist-edit-btn {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.label-input-cont {
+  display: flex;
+  flex-direction: row;
+} 
+
+.x-mark {
+  font-size: 1.1em;
+  color: rgb(255, 105, 105);
+  text-align: center;
+  padding-left: 8px;
+}
+
+.x-mark-link {
+  cursor: pointer;
+}
+
+.x-mark-link:hover .x-mark {
+  color:  rgb(185, 45, 45);
+  transition: 0.05s;
+}
+
+
+

@@ -1,0 +1,16 @@
+
+<div class="col-xs-12 recipe">
+  <a class="list-group-item clearfix" [routerLink]="['/recipes', recipe.name, 'detail']" routerLinkActive="chosenRecipe">
+    <div class="row content">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 recipe-text">
+        <h4 class="list-group-item-heading">{{ recipe.name }}</h4>
+        <p class="list-group-item-text">{{ recipe.description }}</p>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 recipe-img-cont">
+        <img [src]="recipe.imagePath"
+          onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Noun_Project_vegetables_icon_1422990_cc.svg/640px-Noun_Project_vegetables_icon_1422990_cc.svg.png'"
+         [alt]="recipe.name" class="img-responsive" type="text/html">
+      </div>
+    </div>
+  </a>
+</div>

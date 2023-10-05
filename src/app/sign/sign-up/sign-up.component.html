@@ -1,0 +1,24 @@
+<div class="contain row">
+  <div class="content col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
+    <form (ngSubmit)="onSubmit()" [formGroup]="signUpForm">
+      <div class="email-field">
+        <label for="mail">E-mail</label>
+        <input formControlName="email" type="text" name="mail" class="form-control mail-input">
+      </div>
+      <div class="password-field">
+        <label for="password">Password</label>
+        <div class="input-password">
+          <input formControlName="password" name="password" [type]=" passwordCovered ? 'password' : 'text' " class="form-control">
+          <a (click)="changePassType()">
+            <fa-icon [icon]="eye"></fa-icon>
+          </a>
+        </div>
+      </div>
+      <div class="sumbit-cont">
+        <button class="btn submit-btn btn-success" type="submit">
+          Sign up!
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

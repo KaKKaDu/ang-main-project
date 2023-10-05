@@ -1,0 +1,108 @@
+
+
+input:focus, textarea:focus {
+  border: 2px solid gray;
+  box-shadow: none;
+}
+
+label {
+  padding-bottom: 5px;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.buttons-cont {
+  padding-top: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.btn-cont {
+  width: 100%;
+  margin: 5px;
+}
+
+.btn-cont .btn {
+  width: 100%;
+}
+
+.ingredients-cont {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding: 20px;
+  border: 1px solid lightgray;
+  border-radius: 2px;
+}
+
+.ingredient-forms {
+  display: flex;
+  flex-direction: row;
+  padding-top: 10px;
+}
+
+.ingredient-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.ingr-form-btn {
+  text-decoration: none;
+  font-size: 1.4em;
+  color: rgb(151, 151, 151);
+  transition: 0.2s;
+}
+
+.ingr-form-btn:hover {
+  filter: drop-shadow(5px 5px 0 lightgray);
+  transition: 0.2s;
+}
+
+.ingr-confirm:hover {
+  color: rgb(44, 196, 44);
+}
+
+.ingr-deny:hover {
+  color: red;
+}
+
+.ingredient-buttons {
+  display: flex;
+  align-items: flex-end;
+} 
+
+.add-ingr-btn .btn {
+  margin-top: 10px;
+}
+
+.image-preview-cont {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.image-preview {
+  position: relative;
+  width: 100%;
+}
+
+.image-preview img {
+  border: 1px solid #000;
+  box-shadow: 5px 5px 0 rgb(182, 182, 182);
+  width: 100%;
+  height: 100%;
+}
+
+
+@media(max-width:767.2px) {
+  .ingredient-buttons {
+    padding-top: 10px;
+  }
+
+  .buttons-cont {
+    padding-top: 10px;
+  }
+}

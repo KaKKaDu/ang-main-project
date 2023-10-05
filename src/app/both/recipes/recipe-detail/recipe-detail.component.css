@@ -1,0 +1,45 @@
+
+
+
+.img-cont {
+  padding-top: 15px;
+  position: relative;
+  width: 100%;
+}
+
+.img-cont img {
+  width: 100%;
+  box-shadow: 5px 5px lightgray;
+  border: solid 1px #000;
+}
+
+.title {
+  padding-top: 25px;
+}
+
+.info-text {
+  padding-top: 10px;
+}
+
+.manage-group {
+  padding-bottom: 20px;
+}
+
+.open ul {
+  margin-top: 40px;
+  margin-left: -2px;
+}
+
+.ingredients-detail {
+  list-style: none;
+  padding-left: 0.5rem;
+}
+
+.ingredients-detail li {
+  border-bottom: solid 2px lightgray;
+  padding: 10px;
+}
+
+.touchable {
+  cursor: pointer;
+}

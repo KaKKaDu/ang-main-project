@@ -1,0 +1,16 @@
+
+<hr class="divide-hr disp" [ngClass]="{'only-rec': onlyRecipes}">
+
+<div class="recipe-cont"
+[ngClass]="{'col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12': onlyRecipes}">
+  <div class="row">
+    <div [ngClass]="{'col-6': onlyRecipes, 'col-12': !onlyRecipes}">
+      <app-recipe-list></app-recipe-list>
+    </div>
+    <div *ngIf="onlyRecipes" class="col-6">
+      <router-outlet></router-outlet>
+    </div>
+  </div>  
+</div>
+
+

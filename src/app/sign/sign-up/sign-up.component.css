@@ -1,0 +1,78 @@
+
+
+.contain {
+  width: 100%;
+  height: calc(100vh - 180px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+}
+
+.password-field {
+  padding-top: 15px;
+}
+
+.input-password {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.input-password input {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-right: none !important;
+}
+
+.input-password a {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  border: solid 1px #dee2e6;
+  border-left: none !important;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  transition: 0;
+}
+
+.input-password a:hover fa-icon {
+  color: gray;
+}
+
+.mail-input {
+  margin-top: 10px;
+}
+
+.submit-btn {
+  padding: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.sumbit-cont {
+  padding-top: 20px !important;
+}
+
+input {
+  transition: 0 !important;
+}
+
+input:focus {
+  box-shadow: none;
+  border: solid 2px darkgray;
+  transition: 0;
+}
+
+input:focus ~ a {
+  border: solid 2px darkgray;
+  transition: 0;
+}

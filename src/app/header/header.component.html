@@ -1,0 +1,31 @@
+
+<nav class="navbar navbar-light bg-light navbar-expand-sm fixed-top">
+  <div class="container-fluid child">
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/" routerLinkActive="link-chosen" [routerLinkActiveOptions] = "{exact: true}"><span>Recipebook</span></a>
+    </div>
+    <div class="collapse navbar-collapse" id="collapsing">
+      <ul class="navbar-nav nav left-nav">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/recipes" routerLinkActive="link-chosen"><span>Recipes</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/shopping-list" routerLinkActive="link-chosen"><span>Shopping list</span></a>
+        </li>
+      </ul>
+    </div>
+    <ul class="nav navbar-nav ms-auto">
+      <ul class="manage-save-ul">
+        <li class="manage-list-item" routerLink="/sign-up" routerLinkActive="link-chosen link-sign-chosen">
+          <a class="manage-list-link save">Sign up</a>
+        </li>
+        <li class="divide">
+
+        </li>
+        <li class="manage-list-item" (click)="onSignIn()">
+          <a class="manage-list-link save">Sign in</a>
+        </li>
+      </ul>
+    </ul>
+  </div>
+</nav>

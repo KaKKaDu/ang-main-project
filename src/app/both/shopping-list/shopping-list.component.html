@@ -1,0 +1,19 @@
+
+<div [ngClass]="{'col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 offset-md-2 offset-lg-2 offset-xl-2': onlyShopList}">
+  <div class="row">
+    <div class="shopping-list col-12">
+      <ul class="list-group">
+          <a class="ingredient list-group-item" 
+              *ngFor="let ingredient of ingredients; let i = index"
+              [ngClass]="{'chosen': i === chosenLinkIndex}"
+              (click)="onClickForEdit(i)"
+              #{{i}}>
+            {{ingredient.name}} - {{ingredient.amount}}
+          </a>
+      </ul>
+    </div>
+    <div class="shopping-list-edit col-12">
+      <app-shopping-list-edit></app-shopping-list-edit>
+    </div>
+  </div>
+</div>

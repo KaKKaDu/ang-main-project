@@ -1,0 +1,68 @@
+<div class="container-fluid">
+  <form [formGroup]="addIngredientForm" (ngSubmit)="onAddIngredient()">
+    <div class="row">
+      <div class="col-6 form-group">
+        <div class="label-input-cont">
+          <label for="amount">Name</label>
+          <a class="x-mark-link"
+          (click)="onClearField('name')"
+          [ngClass]="{'not-displayed': !addIngredientForm.controls['productName'].value}">
+            <fa-icon [icon]="xmark" class="x-mark"></fa-icon>
+          </a>
+        </div>
+        <input 
+          id="name" 
+          placeholder="Name" 
+          type="text" 
+          class="product-input form-control"
+          formControlName="productName">
+      </div>
+      <div class="col-6 form-group">
+        <div class="label-input-cont">
+          <label for="amount">Amount</label>
+          <a class="x-mark-link"
+          (click)="onClearField('amount')"
+          [ngClass]="{'not-displayed': !addIngredientForm.controls['productAmount'].value}">
+            <fa-icon [icon]="xmark" class="x-mark"></fa-icon>
+          </a>
+        </div>
+        <input 
+          id="amount"
+          placeholder="Amount" 
+          type="number" 
+          class="product-input form-control"
+          formControlName="productAmount">
+      </div>
+      <div class="container-fluid">
+        <div class="col-xs-12 edit-btn-cont row">
+          <div class="single-btn-edit-cont col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <button
+              class="shoplist-edit-btn btn btn-success" 
+              type="submit"
+              [disabled]="!addIngredientForm.valid">
+              <span *ngIf="!editingIngr">Add</span>
+              <span *ngIf="editingIngr">Update</span>
+            </button>
+          </div>
+          <div class="single-btn-edit-cont col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <button
+              [disabled]="!editingIngr"
+              class="shoplist-edit-btn btn btn-danger" 
+              type="button"
+              (click)="onDeleteIngredient()">
+              Delete
+            </button>
+          </div>
+          <div class="single-btn-edit-cont col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+            <button 
+              class="shoplist-edit-btn btn btn-secondary" 
+              type="button"
+              (click)="onClearList()">
+              Clear
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
