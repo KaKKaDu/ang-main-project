@@ -18,8 +18,8 @@ export class FireBaseService {
 
   }
 
-  fetchingFireBaseData() {
-    this.getRecipeListData().subscribe(
+  fetchingFireBaseData(token: string) {
+    this.getRecipeListData(token).subscribe(
       (
         {
           next: (response: Recipe[]) => {
@@ -32,7 +32,7 @@ export class FireBaseService {
       )
     )
 
-    this.getShopListData().subscribe(
+    this.getShopListData(token).subscribe(
       (
         {
           next: (response: Ingredient[]) => {
@@ -46,8 +46,8 @@ export class FireBaseService {
     )
   }
 
-  savingFireBaseData() {
-    this.putRecipeListData().subscribe(
+  savingFireBaseData(token: string) {
+    this.putRecipeListData(token).subscribe(
       {
         next: (response) => {
           console.log(response);
@@ -58,7 +58,7 @@ export class FireBaseService {
       }
     );
 
-    this.putShopListData().subscribe(
+    this.putShopListData(token).subscribe(
       {
         next: (response) => {
           console.log(response);
@@ -70,21 +70,21 @@ export class FireBaseService {
     );
   }
 
-  putRecipeListData() {
+  putRecipeListData(token:string) {
     const recipesData: Recipe[] = this.recipesService.getRecipes();
-    return this.http.put('https://main-ang-project-default-rtdb.europe-west1.firebasedatabase.app/foodData/recipes.json', recipesData);
+    return this.http.put('https://main-ang-project-default-rtdb.europe-west1.firebasedatabase.app/foodData/recipes.json?auth='+token, recipesData);
   }
 
-  getRecipeListData() {
-    return this.http.get<Recipe[]>('https://main-ang-project-default-rtdb.europe-west1.firebasedatabase.app/foodData/recipes.json');
+  getRecipeListData(token:string) {
+    return this.http.get<Recipe[]>('https://main-ang-project-default-rtdb.europe-west1.firebasedatabase.app/foodData/recipes.json?auth='+token);
   }
 
-  putShopListData() {
+  putShopListData(token:string) {
     const shopListData: Ingredient[] = this.shopListService.getShopList();  
-    return this.http.put('https://main-ang-project-default-rtdb.europe-west1.firebasedatabase.app/foodData/shopList.json', shopListData);
+    return this.http.put('https://main-ang-project-default-rtdb.europe-west1.firebasedatabase.app/foodData/shopList.json?auth='+token, shopListData);
   }
 
-  getShopListData() {
-    return this.http.get<Ingredient[]>('https://main-ang-project-default-rtdb.europe-west1.firebasedatabase.app/foodData/shopList.json');
+  getShopListData(token:string) {
+    return this.http.get<Ingredient[]>('https://main-ang-project-default-rtdb.europe-west1.firebasedatabase.app/foodData/shopList.json?auth='+token);
   }
 }

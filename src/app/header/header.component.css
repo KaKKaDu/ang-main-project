@@ -1,12 +1,13 @@
 .navbar {
   height: 60px;
+  z-index: 5;
 }
 
-.manage-save-ul {
+.manage-sign-ul, .manage-sign-ul div {
   display: flex;
   justify-content: center;
   list-style: none;
-  padding-right: 30px;
+  padding-right: 15px;
 }
 
 .manage-list-item {
@@ -67,4 +68,31 @@
 
 .manage-list-item {
   cursor: pointer;
+}
+
+.log-warning {
+  z-index: 6;
+  margin-top: 60px;
+  opacity: 0;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+  background-color: rgb(255, 255, 149);
+  transition: 0.15s;
+}
+
+.log-warning-appear {
+  opacity: 1;
+  transition: 0.15s;
+}
+
+.warning-content {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.warning {
+  text-align: center;
+  color: darkred;
 }

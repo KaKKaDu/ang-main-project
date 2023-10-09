@@ -5,6 +5,7 @@ import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { RecipesService } from '../recipes.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FireBaseService } from 'src/app/shared/server-interaction/firebase.service';
+import { SignService } from 'src/app/sign/sign.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -14,12 +15,24 @@ import { FireBaseService } from 'src/app/shared/server-interaction/firebase.serv
 export class RecipeDetailComponent implements OnInit{
   recipeDetails:Recipe;
   manageAvailable: boolean = false;
+  userToken: string | null;
 
-  constructor(private shoppingListService: ShoppingListService, private recipesService: RecipesService, private route: ActivatedRoute, private router: Router, private fireBaseService: FireBaseService) {
+  constructor(private shoppingListService: ShoppingListService, private recipesService: RecipesService, private route: ActivatedRoute, private router: Router, private fireBaseService: FireBaseService, private signService: SignService) {
 
   }
 
   ngOnInit(): void {
+
+    this.signService.gotUserToken.subscribe(
+      (bool) => {
+        if(bool) {
+          this.userToken = localStorage.getItem("token");
+        }
+      }
+    )
+
+    this.userToken = localStorage.getItem("token");
+
     console.log('hey');
     this.route.params.subscribe(
       (params: Params) => {
@@ -42,7 +55,11 @@ export class RecipeDetailComponent implements OnInit{
     const arrayToSpread: Ingredient[] = this.recipeDetails.ingredients.slice();
     this.shoppingListService.arrayOfIngredientsAdded(arrayToSpread.slice());
     console.log(this.recipeDetails.ingredients);
-    this.fireBaseService.savingFireBaseData();
+    if(this.userToken) {
+      this.fireBaseService.savingFireBaseData(this.userToken);
+    } else {
+      console.log('Not logged in!')
+    }
   }
 
   onDeleteRecipe() {
@@ -51,7 +68,11 @@ export class RecipeDetailComponent implements OnInit{
       let index = this.recipesService.findRecipeIndex(this.recipeDetails.name);
       this.recipesService.deleteRecipe(index);
       this.router.navigate(['/recipes']);
-      this.fireBaseService.savingFireBaseData();
+      if(this.userToken) {
+        this.fireBaseService.savingFireBaseData(this.userToken);
+      } else {
+        console.log("Not logged in!");
+      }
     }
   }
 }

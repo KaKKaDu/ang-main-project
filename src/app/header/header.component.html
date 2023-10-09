@@ -15,17 +15,29 @@
       </ul>
     </div>
     <ul class="nav navbar-nav ms-auto">
-      <ul class="manage-save-ul">
-        <li class="manage-list-item" routerLink="/sign-up" routerLinkActive="link-chosen link-sign-chosen">
-          <a class="manage-list-link save">Sign up</a>
-        </li>
-        <li class="divide">
-
-        </li>
-        <li class="manage-list-item" (click)="onSignIn()">
-          <a class="manage-list-link save">Sign in</a>
+      <ul class="manage-sign-ul">
+        <div *ngIf="!signedIn">
+          <li class="manage-list-item" routerLink="/sign-up" routerLinkActive="link-chosen link-sign-chosen">
+            <a class="manage-list-link save">Sign up</a>
+          </li>
+          <li class="divide">
+  
+          </li>
+          <li class="manage-list-item" routerLink="/log-in" routerLinkActive="link-chosen link-sign-chosen">
+            <a class="manage-list-link save">Log in</a>
+          </li>
+        </div>
+        <li *ngIf="signedIn" class="manage-list-item" (click)="logOut()">
+          <a class="manage-list-link log-out">Log out</a>
         </li>
       </ul>
     </ul>
   </div>
 </nav>
+<div class="log-warning fixed-top" [ngClass]="{'log-warning-appear': !signedIn}">
+  <div class="warning-content">
+    <span class="warning">
+      Now the app works in anonymous mode, all the changes will not be saved and fetched. You have to log-in to be able to save changes.  
+    </span>
+  </div>
+</div>

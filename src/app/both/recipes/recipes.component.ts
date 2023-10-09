@@ -21,20 +21,8 @@ export class RecipesComponent implements OnInit {
 
     if(this.route.snapshot.routeConfig?.path === 'recipes') {
       this.onlyRecipes = true;
-      console.log('true');
     } else {
       this.onlyRecipes = false;
     }
-
-      /*this.headerLinkService.navigationClickedEvent
-      .subscribe(
-        (info: {sign: part}) => {
-          if(info.sign === 'recipes') {
-            this.onlyRecipes = true;
-          } else {
-            this.onlyRecipes = false;
-          }
-        }
-      )*/
   }
 }

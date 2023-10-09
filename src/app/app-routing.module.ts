@@ -7,7 +7,7 @@ import { BothComponent } from './both/both.component';
 import { NotFoundComponent } from './both/not-found/not-found.component';
 import { RecipesStartComponent } from './both/recipes/recipes-start/recipes-start.component';
 import { EditRecipeComponent } from './both/recipes/edit-recipe/edit-recipe.component';
-import { SignUpComponent } from './sign/sign-up/sign-up.component';
+import { SignComponent } from './sign/sign-log/sign.component';
 
 const routes: Routes = [
   {path: '', component: BothComponent},
@@ -19,7 +19,7 @@ const routes: Routes = [
     {path: 'not-found', component: NotFoundComponent}
   ]},
   {path:'shopping-list', component: ShoppingListComponent},
-  {path:'sign-up', component: SignUpComponent},
+  {path:':sign', component: SignComponent},
   {path: '**', component: NotFoundComponent}
 ];
 

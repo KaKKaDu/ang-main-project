@@ -1,4 +1,11 @@
-<div class="contain row">
+<div class="contain">
+  <div class="greet container-fluid">
+    <div>
+      <h2 *ngIf="newAccount">Create a new account</h2>
+      <h2 *ngIf="!newAccount">Log into your account</h2>
+      <hr [ngClass]="{'hr-sign-up': newAccount, 'hr-log-in': !newAccount}">
+    </div>
+  </div>
   <div class="content col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4">
     <form (ngSubmit)="onSubmit()" [formGroup]="signUpForm">
       <div class="email-field">
@@ -15,8 +22,13 @@
         </div>
       </div>
       <div class="sumbit-cont">
-        <button class="btn submit-btn btn-success" type="submit">
-          Sign up!
+        <button *ngIf="newAccount" [disabled]="!this.signUpForm.valid || loading" class="btn submit-btn btn-success" type="submit">
+          <span *ngIf="!loading">Sign up!</span>
+          <mat-spinner *ngIf="loading"></mat-spinner> 
+        </button>
+        <button *ngIf="!newAccount" [disabled]="!this.signUpForm.valid || loading" class="btn submit-btn btn-secondary" type="submit">
+          <span *ngIf="!loading">Log in!</span>
+          <mat-spinner *ngIf="loading"></mat-spinner>
         </button>
       </div>
     </form>

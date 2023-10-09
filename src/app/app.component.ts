@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { FireBaseService } from './shared/server-interaction/firebase.service';
-import { initializeApp } from '@angular/fire/app';
+import { SignService } from './sign/sign.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,21 +13,24 @@ import { initializeApp } from '@angular/fire/app';
 
 export class AppComponent implements OnInit {
   title = 'Project';
+  userToken: string | null;
 
-  constructor(private fireBaseService: FireBaseService) {}
+  constructor(private fireBaseService: FireBaseService, private signService: SignService, private router: Router) {}
 
   ngOnInit(): void {
-    console.log('intiated!');
-    this.fireBaseService.fetchingFireBaseData();
-    const config = {
-      apiKey: "AIzaSyBGj49-L7CM4B2DLsA286Im8n3lnzi4JmI",
-      authDomain: "main-ang-project.firebaseapp.com",
-      databaseURL: "https://main-ang-project-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "main-ang-project",
-      storageBucket: "main-ang-project.appspot.com",
-      messagingSenderId: "542930075159",
-      appId: "1:542930075159:web:8590abd039a3bb9452a652"
+    this.userToken = localStorage.getItem("token");
+    this.signService.gotUserToken.subscribe(
+      (bool) => {
+        if(bool) {
+          this.userToken = localStorage.getItem("token");
+        }
+      }
+    )
+    
+    if(this.userToken) {
+      this.fireBaseService.fetchingFireBaseData(this.userToken);
+    } else {
+      console.log('Not logged in!');
     }
-    initializeApp(config)
   }
 }

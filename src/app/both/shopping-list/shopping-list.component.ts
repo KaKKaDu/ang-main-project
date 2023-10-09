@@ -25,8 +25,7 @@ export class ShoppingListComponent implements OnInit {
         this.chosenLinkIndex = null;
       }
     )
-
-    console.log('updated');
+    
     if (this.route.snapshot.routeConfig?.path === 'shopping-list') {
       this.onlyShopList = true;
     } else {

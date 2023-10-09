@@ -6,6 +6,7 @@ import { RecipesService } from '../recipes.service';
 import { Recipe } from '../recipe.model';
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { FireBaseService } from 'src/app/shared/server-interaction/firebase.service';
+import { SignService } from 'src/app/sign/sign.service';
 
 @Component({
   selector: 'app-edit-recipe',
@@ -19,10 +20,11 @@ export class EditRecipeComponent implements OnInit{
   editMode: boolean;
   editingRecipeName: string;
   recipeDetails: Recipe | undefined; 
+  userToken:string | null;
 
   newRecipeForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private recipesService: RecipesService, private router: Router, private fireBaseService: FireBaseService) {}
+  constructor(private route: ActivatedRoute, private recipesService: RecipesService, private router: Router, private fireBaseService: FireBaseService, private signService: SignService) {}
 
   onSubmit() {
     console.log(this.newRecipeForm);
@@ -49,7 +51,11 @@ export class EditRecipeComponent implements OnInit{
     }
     this.newRecipeForm.reset();
     this.router.navigate(['/recipes', this.recipeDetails.name, 'detail']);
-    this.fireBaseService.savingFireBaseData();
+    if(this.userToken) {
+      this.fireBaseService.savingFireBaseData(this.userToken);
+    } else {
+      console.log('Not logged in!');
+    }
   } 
 
   getIngrControls() {
@@ -79,6 +85,16 @@ export class EditRecipeComponent implements OnInit{
   }
 
   ngOnInit(): void {
+
+    this.userToken = localStorage.getItem("token");
+    this.signService.gotUserToken.subscribe(
+      (bool) => {
+        if(bool) {
+          this.userToken = localStorage.getItem("token");
+        }
+      }
+    )
+
     this.route.params.subscribe(
       (params: Params) => {
         if(params['name']) {
