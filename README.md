@@ -1,105 +1,21 @@
 
+# A little about this project
+Actually, this Angular app contains everything, that I know about Angular and it's features. That's just an evidence of my diligent work and of the fact, that this work is quite productive
+P.S. That's not a CSS project, so all the styling is pretty mediocre, I didn't spend a lot of time to make it look cool. That's exactly Angular project, so be patient and look on what you see :3
 
-## Problem with $event
+## What have I learnt
+I covered all the basics, including concept of front-end frameworks, **components, services, modules, directives, guards, routing** and **lazy-loading**. I also included **Firebase** feature there and briefly touched the **Observables** topic (which I'ma research right after end of the basic course). And all this stuff IS in this project (except Guards, in my concept they-re not needed here).
 
-So, my goal is to repeat the feature, that I actually managed to do in tutorial, but now I have an error.
-The sence is that I have two main components on the page (**app-shopping-list and app-recipes**):
-```html
-<div class="container-fluid below">
-  <div class="row">
-    <div (shopListChosen)="changeChoice($event)" *ngIf = 'pagePart === "shoppingList" || pagePart === "both"' class="shop-list col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-      <app-shopping-list></app-shopping-list>
-    </div>
-    <div (recipesChosen)="changeChoice($event)" *ngIf = 'pagePart === "recipes" || pagePart === "both"' class="recipes col-xs-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
-      <app-recipes></app-recipes>
-    </div>
-  </div>
-</div>
-```
-They have their own containers.
-I also have kind of header (separate component), where I have two links (**Recipes and Shopping List**):
+## About the actual app
+Idea of this application is quite simple: that's a recipe book, with all basic things needed to work with that. It has **home** page, which contains a little shortened versions of the main features: **shopping-list** and **recipes-list**. You can get there by clicking on the brand/logo of the app: **Recipebook**. There are also two links with features described above. You can freely play around with them, deleting and adding Ingredients and recipes, editing them and saving. I have a file called **test-accounts-passwords.txt**,  which contains few accounts to **log-in**, because without that changes wouldn't be saved. Actually, new user doesn't get a new database to save exactly his recipes, and logging in just give you an opportunity to change something and save the common list to database. The logging-in feature was added to implement my knowledge about Firebase library, also to make changes in the app 'saveable'. There are also an option of creating **new account and logging out**,  implemented to the right side of the navbar.
 
-```html
-<nav class="navbar navbar-light bg-light navbar-expand-sm fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      ...
-    </div>
-    <div class="collapse navbar-collapse" id="collapsing">
-      <ul class="navbar-nav nav left-nav">
-        <li class="nav-item">
-          <a href="#" class="nav-link" (click) = "onRecipesClicked()">Recipes</a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link" (click) = "onShoplistClicked()">Shopping list</a>
-        </li>
-      </ul>
-    </div>
-      ...
-  </div>
-</nav>
-```
-So, now my goal is to make one of the main components disappear, when I click the link in the header of another one (if I click **shopping list**, **recipes** disappear, the same the opposite way);
+# Technical part: how to make this code work
+To make this work on your local machine, you have to save this files and set up **CLI**. After that you have to start compiling this project on localhost. Now that is the only approach, but I think I'm going to deploy this project on some free server soon, to make it easier to reach.       
 
-### How I try to accomplish that
-
-I have directives *ngIf on both of the main components, you can see that above in code snippet. The appearance of the components depends on change of the component property **pagePart**, located in app.component.ts (with default value 'both'):
-
-```ts
-  import { part } from './shared/part.model';
-
-  export class AppComponent {
-  ...
-  pagePart: part = 'both';
-  
-  ...
-}
-```
-
-As u can see, **part** type is imported from separate file in 'shared' folder, 'part.model.ts'
-
-```ts
-  export type part = 'recipes' | 'shoppingList' | 'both';
-```
-
-### Change of the pagePart property
-
-In code snippet above you can see two custom events in containers of main components. They trigger function **changeChoice()** (in app.component.ts) with $event argument, which has to catch the info about links clicking, when I emit the event from another 'header.component.ts' file.
-
-function in 'app.component.ts' is simple:
-
-```ts
-   changeChoice(changeSign: {sign: part}) {
-    this.pagePart = changeSign.sign;
-  }
-```
-Now what I do in 'header.component.ts' :
-
-```ts
-  export class HeaderComponent {
-
-  @Output() shopListChosen = new EventEmitter<{sign: part}>();
-  @Output() recipesChosen = new EventEmitter<{sign: part}>();
-
-
-  onRecipesClicked() {
-    this.recipesChosen.emit({sign:'recipes'});
-  }
-  onShoplistClicked() { 
-    this.shopListChosen.emit({sign:'shoppingList'});
-  }
-}
-```
-
-I emit the event here, and send the object with info about what value pagePart has to get. At least that's how this code has to work (because again, as I said, I've already used this feature with the 100% same code, and it worked)
-
-So, eventually, the problem. This code gives me an error when compiling:
-
-```
-  Error: src/app/app.component.html:8:41 - error TS2345: Argument of type 'Event' is not assignable to parameter of type '{ sign: part; }'.
-  Property 'sign' is missing in type 'Event' but required in type '{ sign: part; }'.
-
-     <div (shopListChosen)="changeChoice($event)" *ngIf = 'pagePart === "shoppingList" || pagePart === "both"' class="shop-list col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
-                                          ~~~~~~
-```
-and the same error for the second case (with Recipes). I tryed everything I could find about it in the internet, and it still doesn't work (red screen with mistakes or just not working feature). So that's why I write it here, in hope to get the helping hand from programming gods :3
+## Few screenshots
+![Home page](./sreenshots/Home-page.png)
+![Recipes-start](./sreenshots/Recipe-start-section.png)
+![Recipes-start](./sreenshots/Recipe-details-opened.png)
+![Shopping-list](./sreenshots/Shopping-list-edit.png)
+![Log-in](./sreenshots/Log-in.png)
+![Sign-up](./sreenshots/Sign-up.png)
