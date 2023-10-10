@@ -1,6 +1,6 @@
 
 # A little about this project
-Actually, this Angular app contains everything, that I know about Angular and it's features. That's just an evidence of my diligent work and of the fact, that this work is quite productive
+Actually, this Angular app contains everything, that I know about Angular and it's features. That's just an evidence of my diligent work and of the fact, that this work is quite productive <br />
 P.S. That's not a CSS project, so all the styling is pretty mediocre, I didn't spend a lot of time to make it look cool. That's exactly Angular project, so be patient and look on what you see :3
 
 ## What have I learnt
