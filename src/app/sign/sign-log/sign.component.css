@@ -1,11 +1,32 @@
-.mat-mdc-progress-spinner {
-  --mdc-circular-progress-active-indicator-color: aliceblue;
-}
 
 mat-spinner {
   width: 27px !important;
   height: 27px !important;
 } 
+
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: aliceblue;
+}
+
+input {
+  transition: 0 !important;
+}
+
+input:focus {
+  box-shadow: none;
+  border: solid 2px darkgray;
+  transition: 0;
+}
+
+input:focus ~ a {
+  border: solid 2px darkgray;
+  transition: 0;
+}
+
+hr {
+  margin-top: 20px ;
+  padding-top: 1px;
+}
 
 .contain {
   width: 100%;
@@ -20,11 +41,6 @@ mat-spinner {
   display: flex;
   justify-content: center;
   padding-bottom: 25px;
-}
-
-hr {
-  margin-top: 20px ;
-  padding-top: 1px;
 }
 
 .hr-sign-up {
@@ -92,19 +108,4 @@ hr {
 
 .sumbit-cont {
   padding-top: 20px !important;
-}
-
-input {
-  transition: 0 !important;
-}
-
-input:focus {
-  box-shadow: none;
-  border: solid 2px darkgray;
-  transition: 0;
-}
-
-input:focus ~ a {
-  border: solid 2px darkgray;
-  transition: 0;
 }

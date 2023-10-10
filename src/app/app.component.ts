@@ -1,7 +1,8 @@
-import { Component, HostListener, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+
+import { Component, OnInit } from '@angular/core';
 import { FireBaseService } from './shared/server-interaction/firebase.service';
 import { SignService } from './sign/sign.service';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-root',
@@ -9,13 +10,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css'],
 })
 
-
-
 export class AppComponent implements OnInit {
   title = 'Project';
   userToken: string | null;
 
-  constructor(private fireBaseService: FireBaseService, private signService: SignService, private router: Router) {}
+  constructor(
+    private fireBaseService: FireBaseService,
+    private signService: SignService,
+    ) {}
 
   ngOnInit(): void {
     this.userToken = localStorage.getItem("token");

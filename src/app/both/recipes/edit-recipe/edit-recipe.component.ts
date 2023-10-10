@@ -1,12 +1,17 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { faXmark } from '@fortawesome/free-solid-svg-icons'
+
 import { RecipesService } from '../recipes.service';
-import { Recipe } from '../recipe.model';
-import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { FireBaseService } from 'src/app/shared/server-interaction/firebase.service';
 import { SignService } from 'src/app/sign/sign.service';
+
+import { Recipe } from 'src/app/shared/models/recipe.model';
+import { Ingredient } from 'src/app/shared/models/ingredient.model';
+
+import { faXmark } from '@fortawesome/free-solid-svg-icons'
+
 
 @Component({
   selector: 'app-edit-recipe',
@@ -16,18 +21,71 @@ import { SignService } from 'src/app/sign/sign.service';
 
 export class EditRecipeComponent implements OnInit{
   bordersForAmount: string = '^[1-9]+[0-9]*$';
-  denyIcon = faXmark;
   editMode: boolean;
   editingRecipeName: string;
   recipeDetails: Recipe | undefined; 
   userToken:string | null;
-
   newRecipeForm: FormGroup;
 
-  constructor(private route: ActivatedRoute, private recipesService: RecipesService, private router: Router, private fireBaseService: FireBaseService, private signService: SignService) {}
+  denyIcon = faXmark;
+
+  constructor(
+    private route: ActivatedRoute,
+    private recipesService: RecipesService,
+    private router: Router,
+    private fireBaseService: FireBaseService,
+    private signService: SignService) {}
+
+  ngOnInit(): void {
+    this.userToken = localStorage.getItem("token");
+    this.signService.gotUserToken.subscribe(
+      (bool) => {
+        if(bool) {
+          this.userToken = localStorage.getItem("token");
+        }
+      }
+    )
+
+    this.route.params.subscribe(
+      (params: Params) => {
+        if(params['name']) {
+          this.editMode = true;
+          this.editingRecipeName = params['name'].trim();
+          this.recipeDetails = this.recipesService.findRecipeDetails(params['name']);
+          if(this.recipeDetails) {
+            this.newRecipeForm = new FormGroup({
+              'recipeName': new FormControl(this.recipeDetails.name, Validators.required),
+              'recipeImage': new FormControl(this.recipeDetails.imagePath),
+              'recipeDescription': new FormControl(this.recipeDetails.description, Validators.required),
+              'recipeIngredients': new FormArray([])
+            });
+  
+            if(this.recipeDetails.ingredients) {
+              for(let i = 0; i < this.recipeDetails.ingredients.length; i++) {
+                let controlIngredient = new FormGroup({
+                  'ingredientName': new FormControl(this.recipeDetails.ingredients[i].name, Validators.required),
+                  'ingredientAmount': new FormControl(this.recipeDetails.ingredients[i].amount, Validators.required)
+                });
+                (<FormArray>this.newRecipeForm.get('recipeIngredients')).push(controlIngredient);
+              }
+            }  
+          } else {
+            this.router.navigate(['/recipes', 'not-found']);
+          }
+        } else {
+          this.editMode = false;
+          this.newRecipeForm = new FormGroup({
+            'recipeName': new FormControl('', Validators.required),
+            'recipeImage': new FormControl(''),
+            'recipeDescription': new FormControl('New recipe!', Validators.required),
+            'recipeIngredients': new FormArray([])
+          });
+        }  
+      }
+    )
+  }
 
   onSubmit() {
-    console.log(this.newRecipeForm);
     this.recipeDetails = {
       name: this.newRecipeForm.controls['recipeName'].value,
       imagePath: this.newRecipeForm.controls['recipeImage'].value,
@@ -82,56 +140,5 @@ export class EditRecipeComponent implements OnInit{
     } else {
       this.router.navigate(['/recipes']);
     }
-  }
-
-  ngOnInit(): void {
-
-    this.userToken = localStorage.getItem("token");
-    this.signService.gotUserToken.subscribe(
-      (bool) => {
-        if(bool) {
-          this.userToken = localStorage.getItem("token");
-        }
-      }
-    )
-
-    this.route.params.subscribe(
-      (params: Params) => {
-        if(params['name']) {
-          this.editMode = true;
-          this.editingRecipeName = params['name'].trim();
-          this.recipeDetails = this.recipesService.findRecipeDetails(params['name']);
-          if(this.recipeDetails) {
-            this.newRecipeForm = new FormGroup({
-              'recipeName': new FormControl(this.recipeDetails.name, Validators.required),
-              'recipeImage': new FormControl(this.recipeDetails.imagePath),
-              'recipeDescription': new FormControl(this.recipeDetails.description, Validators.required),
-              'recipeIngredients': new FormArray([])
-            });
-  
-            if(this.recipeDetails.ingredients) {
-              for(let i = 0; i < this.recipeDetails.ingredients.length; i++) {
-                let controlIngredient = new FormGroup({
-                  'ingredientName': new FormControl(this.recipeDetails.ingredients[i].name, Validators.required),
-                  'ingredientAmount': new FormControl(this.recipeDetails.ingredients[i].amount, Validators.required)
-                });
-                (<FormArray>this.newRecipeForm.get('recipeIngredients')).push(controlIngredient);
-              }
-            }  
-          } else {
-            this.router.navigate(['/recipes', 'not-found']);
-          }
-        } else {
-          this.editMode = false;
-          this.newRecipeForm = new FormGroup({
-            'recipeName': new FormControl('', Validators.required),
-            'recipeImage': new FormControl(''),
-            'recipeDescription': new FormControl('New recipe!', Validators.required),
-            'recipeIngredients': new FormArray([])
-          });
-        }  
-      }
-    )
-
   }
 }

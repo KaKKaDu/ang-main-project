@@ -1,11 +1,13 @@
 import { Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
+
 import { FireBaseService } from '../shared/server-interaction/firebase.service';
-import { Recipe } from '../both/recipes/recipe.model';
-import { Ingredient } from '../shared/models/ingredient.model';
 import { RecipesService } from '../both/recipes/recipes.service';
 import { ShoppingListService } from '../both/shopping-list/shopping-list.service';
-import { Router } from '@angular/router';
 import { SignService } from '../sign/sign.service';
+
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+
 
 @Component({
   selector: 'app-header',
@@ -14,17 +16,19 @@ import { SignService } from '../sign/sign.service';
 })
 
 export class HeaderComponent implements OnInit {
-
   signedIn: boolean;
   userToken: string | null;
 
-  constructor(private fireBaseService: FireBaseService, private recipesService: RecipesService, private shopListService: ShoppingListService, private router: Router, private signService: SignService) {
+  bars = faBars;
 
-  }
+  constructor(
+    private fireBaseService: FireBaseService,
+    private recipesService: RecipesService,
+    private shopListService: ShoppingListService,
+    private router: Router,
+    private signService: SignService) {}
 
   ngOnInit(): void {
-    console.log('header here!');
-
     this.signService.logCheck.subscribe(
       (signed: boolean) => {
         this.signedIn = signed;
@@ -44,8 +48,6 @@ export class HeaderComponent implements OnInit {
       this.signedIn = true;
     }
   }
-
-  
 
   logOut() {
     this.signService.logOut();

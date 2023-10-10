@@ -1,28 +1,36 @@
+
 import { Component, OnInit } from '@angular/core';
-import { Recipe } from '../recipe.model';
-import { ShoppingListService } from 'src/app/both/shopping-list/shopping-list.service';
-import { Ingredient } from 'src/app/shared/models/ingredient.model';
-import { RecipesService } from '../recipes.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+
+import { Recipe } from 'src/app/shared/models/recipe.model';
+import { Ingredient } from 'src/app/shared/models/ingredient.model';
+
 import { FireBaseService } from 'src/app/shared/server-interaction/firebase.service';
+import { ShoppingListService } from 'src/app/both/shopping-list/shopping-list.service';
+import { RecipesService } from '../recipes.service';
 import { SignService } from 'src/app/sign/sign.service';
+
 
 @Component({
   selector: 'app-recipe-detail',
   templateUrl: './recipe-detail.component.html',
   styleUrls: ['./recipe-detail.component.css']
 })
+
 export class RecipeDetailComponent implements OnInit{
   recipeDetails:Recipe;
   manageAvailable: boolean = false;
   userToken: string | null;
 
-  constructor(private shoppingListService: ShoppingListService, private recipesService: RecipesService, private route: ActivatedRoute, private router: Router, private fireBaseService: FireBaseService, private signService: SignService) {
-
-  }
+  constructor(
+    private shoppingListService: ShoppingListService,
+    private recipesService: RecipesService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private fireBaseService: FireBaseService,
+    private signService: SignService) {}
 
   ngOnInit(): void {
-
     this.signService.gotUserToken.subscribe(
       (bool) => {
         if(bool) {
@@ -33,7 +41,6 @@ export class RecipeDetailComponent implements OnInit{
 
     this.userToken = localStorage.getItem("token");
 
-    console.log('hey');
     this.route.params.subscribe(
       (params: Params) => {
         const recipeDet = this.recipesService.findRecipeDetails(params['name'].trim());
@@ -51,14 +58,13 @@ export class RecipeDetailComponent implements OnInit{
   }
 
   onAddToShopList() {
-    console.log(this.recipeDetails.ingredients);
     const arrayToSpread: Ingredient[] = this.recipeDetails.ingredients.slice();
     this.shoppingListService.arrayOfIngredientsAdded(arrayToSpread.slice());
     console.log(this.recipeDetails.ingredients);
     if(this.userToken) {
       this.fireBaseService.savingFireBaseData(this.userToken);
     } else {
-      console.log('Not logged in!')
+      console.log('Not logged in!');
     }
   }
 

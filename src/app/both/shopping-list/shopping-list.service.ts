@@ -1,10 +1,8 @@
 
-
 import { Ingredient } from "../../shared/models/ingredient.model";
 import { Subject } from "rxjs";
 
 export class ShoppingListService {
-
   ProductHighlighted = new Subject<number>();
   ProductEdit = new Subject<number>();
   OnAddIngredient = new Subject<Ingredient[]>();
@@ -39,6 +37,7 @@ export class ShoppingListService {
   }
 
   checkSimilarIngredients(ingredients: Ingredient[]):Ingredient[] {
+
     for(let i = 0; i < ingredients.length; i++) {
       for(let a = 0; a < ingredients.length; a++) {
         if (a === i) {
@@ -56,13 +55,16 @@ export class ShoppingListService {
 
   newIngredientAdded(ingredient:Ingredient) {
     this.ingredients.push(ingredient);
-    this.ingredients = this.checkSimilarIngredients(this.ingredients);
+    const ingrCopy: Ingredient[] = this.checkSimilarIngredients(JSON.parse(JSON.stringify(this.getShopList())));
+    this.ingredients = ingrCopy;
     this.OnAddIngredient.next(this.getShopList());
   }
 
   arrayOfIngredientsAdded(arrayToAdd: Ingredient[]) {
     this.ingredients.push(...arrayToAdd);
-    this.ingredients = this.checkSimilarIngredients(this.getShopList());
+    const ingrCopy: Ingredient[] = this.checkSimilarIngredients(JSON.parse(JSON.stringify(this.getShopList())));
+    console.log(ingrCopy);
+    this.ingredients = ingrCopy;
     this.OnAddIngredient.next(this.getShopList());
     console.log(this.ingredients);
   }

@@ -1,17 +1,14 @@
 
-import { Recipe } from "./recipe.model"
+import { Recipe } from "src/app/shared/models/recipe.model"; 
 import { Ingredient } from "../../shared/models/ingredient.model";
 import { Subject } from "rxjs";
 import { Injectable } from "@angular/core";
-import { FireBaseService } from "src/app/shared/server-interaction/firebase.service";
 
 
 @Injectable()
 
 export class RecipesService {
-
   recipeChange = new Subject<Recipe[]>
-
 
   private recipes: Recipe[] = [
     new Recipe(

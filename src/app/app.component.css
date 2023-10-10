@@ -1,13 +1,6 @@
 
-
 .below {
   margin-top: 110px;
-}
-
-@media(max-width: 972px) {
-  .below {
-    margin-top: 135px;
-  } 
 }
 
 @media (max-width:767.2px) {

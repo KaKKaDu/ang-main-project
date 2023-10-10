@@ -1,7 +1,23 @@
 
-<nav class="navbar navbar-light bg-light navbar-expand-sm fixed-top">
+<nav class="navbar navbar-light bg-light navbar-expand-md fixed-top">
   <div class="container-fluid child">
-    <div class="navbar-header">
+      <div class="btn-group manage-group" appDrop>
+        <div class="navbar-header">
+          <div class="bars-cont">
+            <a class="bars">
+              <fa-icon [icon]="bars">
+              </fa-icon>
+            </a>
+        </div>
+        <ul class="dropdown-menu">
+          <li class="nav-item" routerLink="/recipes" routerLinkActive="link-chosen">
+            <a class="nav-link"><span>Recipes</span></a>
+          </li>
+          <li class="nav-item" routerLink="/shopping-list" routerLinkActive="link-chosen">
+            <a class="nav-link"><span>Shopping list</span></a>
+          </li>
+        </ul>
+      </div>
       <a class="navbar-brand" routerLink="/" routerLinkActive="link-chosen" [routerLinkActiveOptions] = "{exact: true}"><span>Recipebook</span></a>
     </div>
     <div class="collapse navbar-collapse" id="collapsing">
@@ -17,13 +33,13 @@
     <ul class="nav navbar-nav ms-auto">
       <ul class="manage-sign-ul">
         <div *ngIf="!signedIn">
-          <li class="manage-list-item" routerLink="/sign-up" routerLinkActive="link-chosen link-sign-chosen">
+          <li class="manage-list-item" routerLink="register/sign-up" routerLinkActive="link-chosen link-sign-chosen">
             <a class="manage-list-link save">Sign up</a>
           </li>
           <li class="divide">
   
           </li>
-          <li class="manage-list-item" routerLink="/log-in" routerLinkActive="link-chosen link-sign-chosen">
+          <li class="manage-list-item" routerLink="register/log-in" routerLinkActive="link-chosen link-sign-chosen">
             <a class="manage-list-link save">Log in</a>
           </li>
         </div>
@@ -34,7 +50,7 @@
     </ul>
   </div>
 </nav>
-<div class="log-warning fixed-top" [ngClass]="{'log-warning-appear': !signedIn}">
+<div class="log-warning fixed-bottom" [ngClass]="{'log-warning-appear': !signedIn}">
   <div class="warning-content">
     <span class="warning">
       Now the app works in anonymous mode, all the changes will not be saved and fetched. You have to log-in to be able to save changes.  

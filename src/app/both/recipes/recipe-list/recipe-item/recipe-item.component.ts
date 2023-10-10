@@ -1,9 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Recipe } from '../../recipe.model';
-import { RecipesService } from '../../recipes.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
-
+import { Component, Input } from '@angular/core';
+import { Recipe } from 'src/app/shared/models/recipe.model'; 
 
 
 @Component({
@@ -13,14 +10,5 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 
 export class RecipeItemComponent {
-
   @Input() recipe: Recipe;
-  
-  constructor(private recipesService: RecipesService, private router: Router) {
-
-  }
-
-  /*onRecipeClicked():void {
-   
-  }*/
 }
